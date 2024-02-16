@@ -25,7 +25,7 @@ node('build-slave') {
 	        stage('assets-pull') {
 
                 dir("${env.WORKSPACE}/assets") {
-                checkout scm: [$class: 'GitSCM', branches: [[name: assets_repo_branch]], extensions: [[$class: 'CloneOption', depth: 1, noTags: true, reference: '', shallow: true]], userRemoteConfigs: [[credentialsId: asset_repo_credentials, url: assets_repo_url]]]
+                checkout scm: [$class: 'GitSCM', branches: [[cbrelease-4.8.11]], extensions: [[$class: 'CloneOption', depth: 1, noTags: true, reference: '', shallow: true]], userRemoteConfigs: [[credentialsId: asset_repo_credentials, url: assets_repo_url]]]
                 sh('cd iGOT/client-assets && docker build -t assets . && docker run --name assets assets && docker cp assets:/usr/src/app/dist.zip . && docker rm -f assets && docker rmi -f assets && unzip dist.zip')
                 }
                 }
